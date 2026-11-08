@@ -13,6 +13,8 @@ export function renderLeccionView() {
   const L = MASTER_LESSON_IDEA_PRINCIPAL;
   const isCompleted = store.isLessonCompleted(L.id);
   const checklistSaved = store.getChecklistState("chk-idea-principal");
+  const completedStages = store.getCompletedStages(L.id);
+  const realProgress = Math.round((completedStages.length / 5) * 100);
 
   const STAGES = [
     { num: 1, name: "Descubre" },
@@ -54,17 +56,20 @@ export function renderLeccionView() {
                 Etapa ${currentLessonStage} de 5: ${STAGES[currentLessonStage - 1].name}
               </span>
               <span style="font-size: 0.82rem; font-weight: 700; color: var(--c-matcha-dark);">
-                ${currentLessonStage * 20}% completado
+                ${realProgress}% completado
               </span>
             </div>
 
             <!-- Botones de las 5 Etapas -->
             <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.4rem;">
-              ${STAGES.map(st => `
-                <button class="stage-tab-btn ${st.num === currentLessonStage ? 'active' : (st.num < currentLessonStage ? 'done' : '')}" data-stage="${st.num}" style="padding: 0.5rem 0.25rem; font-size: 0.8rem; font-weight: 600; border-radius: var(--radius-sm); border: 1.5px solid ${st.num === currentLessonStage ? 'var(--c-matcha)' : 'var(--c-border)'}; background: ${st.num === currentLessonStage ? 'var(--c-matcha)' : (st.num < currentLessonStage ? '#EBF3E8' : 'var(--c-surface)')}; color: ${st.num === currentLessonStage ? '#FFF' : 'var(--c-carob)'}; cursor: pointer;">
-                  ${st.num}. ${st.name}
+              ${STAGES.map(st => {
+                const isDone = completedStages.includes(st.num);
+                const isActive = st.num === currentLessonStage;
+                return `
+                <button class="stage-tab-btn ${isActive ? 'active' : (isDone ? 'done' : '')}" data-stage="${st.num}" style="padding: 0.5rem 0.25rem; font-size: 0.8rem; font-weight: 600; border-radius: var(--radius-sm); border: 1.5px solid ${isActive ? 'var(--c-matcha)' : (isDone ? '#7CB866' : 'var(--c-border)')}; background: ${isActive ? 'var(--c-matcha)' : (isDone ? '#EBF3E8' : 'var(--c-surface)')}; color: ${isActive ? '#FFF' : 'var(--c-carob)'}; cursor: pointer;">
+                  ${isDone && !isActive ? '✓ ' : ''}${st.num}. ${st.name}
                 </button>
-              `).join('')}
+              `}).join('')}
             </div>
           </div>
         </div>
@@ -388,11 +393,12 @@ export function initLeccionEvents(container, showToast) {
     });
   });
 
-  // Botón Siguiente Etapa
+  // Botón Siguiente Etapa — marca la etapa actual como completada
   const btnNext = container.querySelector("#btn-stage-next");
   if (btnNext) {
     btnNext.addEventListener("click", () => {
       if (currentLessonStage < 5) {
+        store.markStageCompleted("idea-principal", currentLessonStage);
         currentLessonStage++;
         container.innerHTML = renderLeccionView();
         initLeccionEvents(container, showToast);
@@ -414,10 +420,11 @@ export function initLeccionEvents(container, showToast) {
     });
   }
 
-  // Finalizar lección
+  // Finalizar lección — marca etapa 5 y la lección completa
   const btnFinish = container.querySelector("#btn-finish-lesson");
   if (btnFinish) {
     btnFinish.addEventListener("click", () => {
+      store.markStageCompleted("idea-principal", 5);
       store.markLessonCompleted("idea-principal");
       showToast("¡Felicitaciones! Has completado todas las etapas de la Lección 1.4.", "success");
       setTimeout(() => {

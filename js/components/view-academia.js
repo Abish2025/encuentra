@@ -58,8 +58,10 @@ export function renderAcademiaView() {
           ${currentLevel.lessons.map(lesson => {
             const isCompleted = store.isLessonCompleted(lesson.id);
             const isMaster = lesson.isMaster;
+            // Solo la lección maestra (idea-principal) tiene contenido completo
+            const isAvailable = isMaster;
             return `
-              <div class="lesson-card ${isMaster ? 'card-matcha' : ''}">
+              <div class="lesson-card ${isMaster ? 'card-matcha' : ''} ${!isAvailable ? 'lesson-coming-soon' : ''}">
                 <div class="lesson-meta">
                   <span class="badge ${isMaster ? 'badge-matcha' : 'badge-carob'}">Lección ${lesson.number}</span>
                   <span class="lesson-duration">
@@ -68,18 +70,26 @@ export function renderAcademiaView() {
                   </span>
                 </div>
 
-                <h3 class="lesson-title">${lesson.title}</h3>
-                <p class="lesson-desc">${lesson.desc}</p>
+                <h3 class="lesson-title" style="${!isAvailable ? 'opacity:0.7;' : ''}">${lesson.title}</h3>
+                <p class="lesson-desc" style="${!isAvailable ? 'opacity:0.6;' : ''}">${lesson.desc}</p>
 
                 <div class="lesson-card-footer">
-                  <span class="lesson-status-badge ${isCompleted ? 'text-success' : 'text-muted'}">
-                    ${isCompleted ? '✓ Completada' : 'Disponible'}
-                  </span>
-                  
-                  <a href="#leccion/${lesson.id}" class="btn btn-sm ${isMaster ? 'btn-primary' : 'btn-secondary'}">
-                    <span>${isMaster ? 'Iniciar Lección' : 'Ver Lección'}</span>
-                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                  </a>
+                  ${isAvailable ? `
+                    <span class="lesson-status-badge ${isCompleted ? 'text-success' : 'text-muted'}">
+                      ${isCompleted ? '✓ Completada' : 'Disponible'}
+                    </span>
+                    <a href="#leccion/${lesson.id}" class="btn btn-sm ${isMaster ? 'btn-primary' : 'btn-secondary'}">
+                      <span>${isMaster ? 'Iniciar Lección' : 'Ver Lección'}</span>
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                  ` : `
+                    <span class="lesson-status-badge text-muted" style="font-style:italic;">
+                      🛠 En preparación
+                    </span>
+                    <span class="btn btn-sm" style="background:var(--c-surface-warm);color:var(--c-text-muted);cursor:not-allowed;border:1px solid var(--c-border);" title="Esta lección está en preparación">
+                      Próximamente
+                    </span>
+                  `}
                 </div>
               </div>
             `;

@@ -9,13 +9,21 @@ import { CURRICULUM_LEVELS } from "../data/curriculum.js";
 export function renderProgresoView() {
   const progress = store.getProgress();
   const completedLessons = progress.completedLessons || [];
+  const completedStages = progress.completedStages || {};
   const exerciseStats = store.getExerciseStats();
   const entriesCount = store.getJournalEntries().length;
   const favsCount = store.getFavorites().length;
 
-  // Total de lecciones en la plataforma
+  // Solo contamos lecciones que tienen contenido real disponible
+  const availableLessons = ["idea-principal"]; // lecciones con contenido completo
   const totalLessons = CURRICULUM_LEVELS.reduce((acc, lvl) => acc + lvl.lessons.length, 0);
-  const percentage = Math.round((completedLessons.length / totalLessons) * 100);
+  const completedCount = completedLessons.length;
+  const percentage = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
+
+  // Progreso detallado por etapas para lecciones en curso
+  const stagesInProgress = Object.entries(completedStages)
+    .filter(([id, stages]) => stages.length > 0 && stages.length < 5)
+    .map(([id, stages]) => ({ id, completed: stages.length, total: 5 }));
 
   // Insignias de Habilidades alcanzadas (basadas en acciones reales de estudio)
   const badges = [
@@ -76,7 +84,7 @@ export function renderProgresoView() {
       <!-- Cuadrícula de Estadísticas Reales -->
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-number">${completedLessons.length}</div>
+          <div class="stat-number">${completedCount}</div>
           <div class="stat-label">Lecciones Completadas</div>
           <div style="font-size: 0.8rem; color: var(--c-text-muted); margin-top: 0.25rem;">de ${totalLessons} lecciones</div>
         </div>
@@ -128,6 +136,21 @@ export function renderProgresoView() {
             `;
           }).join('')}
         </div>
+
+        ${stagesInProgress.length > 0 ? `
+          <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--c-border-subtle);">
+            <h3 style="font-size: 1rem; color: var(--c-carob); margin-bottom: 0.75rem;">📝 Lecciones en curso</h3>
+            ${stagesInProgress.map(s => `
+              <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; font-size: 0.88rem;">
+                <span style="color: var(--c-text-primary); font-weight: 600;">${s.id}</span>
+                <div style="flex: 1; background: var(--c-almond); height: 8px; border-radius: var(--radius-full); overflow: hidden;">
+                  <div style="background: var(--c-chai); height: 100%; width: ${Math.round((s.completed / s.total) * 100)}%; border-radius: var(--radius-full);"></div>
+                </div>
+                <span style="font-size: 0.82rem; color: var(--c-text-muted);">${s.completed}/${s.total} etapas</span>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
       </div>
 
       <!-- Insignias de Competencias -->

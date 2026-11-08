@@ -50,6 +50,12 @@ export function renderDiarioView() {
     </div>
 
     <div class="container">
+
+      <!-- Aviso de Privacidad -->
+      <div style="background: #FFF8E7; border: 1px solid var(--c-chai); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.88rem; line-height: 1.6; color: var(--c-carob);">
+        <strong>🔒 Sobre la privacidad de tus notas:</strong> Tus reflexiones se guardan <strong>únicamente en este navegador y dispositivo</strong>. No se envían a ningún servidor ni se sincronizan entre dispositivos. No están protegidas por contraseña ni cifradas. Si borras los datos de tu navegador, se perderán. Te recomendamos descargar una copia de seguridad regularmente.
+      </div>
+
       <div class="journal-layout">
         
         <!-- Formulario Editor de Notas -->

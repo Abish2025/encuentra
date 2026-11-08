@@ -11,38 +11,28 @@ const STORAGE_KEYS = {
   GUIDE_DRAFT: "encuentra_guide_draft_v1"
 };
 
-// Muestra inicial pedagógica para el Diario si está vacío
-const INITIAL_JOURNAL_SAMPLE = [
-  {
-    id: "sample-1",
-    title: "La ancla de mi alma en Helamán 3:29",
-    scriptureRef: "Helamán 3:29–30",
-    category: "Idea Principal",
-    content: "Hoy aprendí a no quedarme solo con la imagen del 'abismo de miseria', sino a notar que la idea principal es que asirse a la palabra de Dios vence la astucia del diablo y nos deposita a la diestra de Dios. La palabra de Dios no es opcional: es el salvavidas.",
-    tags: ["Libro de Mormón", "Protección", "Idea Principal"],
-    createdAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-    updatedAt: new Date(Date.now() - 86400000 * 2).toISOString()
-  }
-];
-
 class AppStore {
   constructor() {
     this._initStore();
   }
 
   _initStore() {
+    // Diario comienza vacío para nuevos usuarios
     if (!localStorage.getItem(STORAGE_KEYS.JOURNAL)) {
-      localStorage.setItem(STORAGE_KEYS.JOURNAL, JSON.stringify(INITIAL_JOURNAL_SAMPLE));
+      localStorage.setItem(STORAGE_KEYS.JOURNAL, JSON.stringify([]));
     }
+    // Progreso comienza en cero para nuevos usuarios
     if (!localStorage.getItem(STORAGE_KEYS.PROGRESS)) {
       localStorage.setItem(STORAGE_KEYS.PROGRESS, JSON.stringify({
-        completedLessons: ["como-comenzar"],
-        studyStreakDays: 3,
-        lastStudyDate: new Date().toISOString()
+        completedLessons: [],
+        completedStages: {},
+        studyStreakDays: 0,
+        lastStudyDate: null
       }));
     }
+    // Favoritos comienzan vacíos para nuevos usuarios
     if (!localStorage.getItem(STORAGE_KEYS.FAVORITES)) {
-      localStorage.setItem(STORAGE_KEYS.FAVORITES, JSON.stringify(["albedrio", "caridad"]));
+      localStorage.setItem(STORAGE_KEYS.FAVORITES, JSON.stringify([]));
     }
     if (!localStorage.getItem(STORAGE_KEYS.CHECKLISTS)) {
       localStorage.setItem(STORAGE_KEYS.CHECKLISTS, JSON.stringify({}));
@@ -157,6 +147,32 @@ class AppStore {
       localStorage.setItem(STORAGE_KEYS.PROGRESS, JSON.stringify(progress));
       this._triggerStorageEvent("progress");
     }
+  }
+
+  // Marca una etapa específica de una lección como completada (por actividad real)
+  markStageCompleted(lessonId, stageNum) {
+    const progress = this.getProgress();
+    if (!progress.completedStages) progress.completedStages = {};
+    if (!progress.completedStages[lessonId]) progress.completedStages[lessonId] = [];
+    if (!progress.completedStages[lessonId].includes(stageNum)) {
+      progress.completedStages[lessonId].push(stageNum);
+      progress.lastStudyDate = new Date().toISOString();
+      // Si se completaron las 5 etapas, marcar lección como completada
+      if (progress.completedStages[lessonId].length >= 5) {
+        if (!progress.completedLessons) progress.completedLessons = [];
+        if (!progress.completedLessons.includes(lessonId)) {
+          progress.completedLessons.push(lessonId);
+        }
+      }
+      localStorage.setItem(STORAGE_KEYS.PROGRESS, JSON.stringify(progress));
+      this._triggerStorageEvent("progress");
+    }
+  }
+
+  getCompletedStages(lessonId) {
+    const progress = this.getProgress();
+    if (!progress.completedStages) return [];
+    return progress.completedStages[lessonId] || [];
   }
 
   isLessonCompleted(lessonId) {
