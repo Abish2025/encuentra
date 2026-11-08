@@ -4,6 +4,24 @@
 
 export const DICTIONARY_TERMS = [
   {
+    id: "gracia",
+    term: "Gracia",
+    category: "Doctrinal",
+    origin: "Del latín gratia (favor generoso, don gratuito); en griego bíblico charis (favor inmerecido, belleza espiritual y poder divino habilitador); en hebreo chen o hesed (favor compasivo y amor leal del pacto)",
+    simpleDef: "La ayuda divina, el poder habilitador y la misericordia infinita que recibimos por medio de la Expiación de Jesucristo para ser perdonados, transformados y perfeccionados más allá de nuestra propia capacidad humana.",
+    contextualMeaning: "En el Evangelio de Jesucristo, la gracia no es un mero permiso pasivo ante nuestras debilidades, sino un poder divino activo y santificador. Mediante la gracia del Señor, no solo somos justificados y perdonados de nuestros pecados al arrepentirnos, sino también capacitados para hacer buenas obras y perseverar cuando nuestras propias fuerzas se agotan. Como enseñó Nefi, «es por la gracia por la que nos salvamos, después de hacer todo cuanto podamos» (2 Nefi 25:23), reconociendo que nuestra mayor entrega siempre depende de los méritos infinitos del Santo Mesías. Moroni concluye el Libro de Mormón testificando que si venimos a Cristo y nos abstenemos de toda impiedad, Su gracia nos es suficiente para llegar a ser santos y perfectos en Él.",
+    example: "«Y si los hombres vienen a mí, les mostraré su debilidad... porque mi gracia es suficiente para todos los hombres que se humillan ante mí; porque si se humillan ante mí, y tienen fe en mí, entonces haré que las cosas débiles sean fuertes para ellos» (Éter 12:27).",
+    references: [
+      { text: "2 Nefi 25:23", url: "https://www.churchofjesuschrist.org/study/scriptures/bofm/2-ne/25?lang=spa&id=p23#p23" },
+      { text: "Moroni 10:32–33", url: "https://www.churchofjesuschrist.org/study/scriptures/bofm/moro/10?lang=spa&id=p32-p33#p32" },
+      { text: "Éter 12:27", url: "https://www.churchofjesuschrist.org/study/scriptures/bofm/ether/12?lang=spa&id=p27#p27" },
+      { text: "Efesios 2:8–9", url: "https://www.churchofjesuschrist.org/study/scriptures/nt/eph/2?lang=spa&id=p8-p9#p8" },
+      { text: "2 Corintios 12:9", url: "https://www.churchofjesuschrist.org/study/scriptures/nt/2-cor/12?lang=spa&id=p9#p9" },
+      { text: "D. y C. 93:12–13, 20", url: "https://www.churchofjesuschrist.org/study/scriptures/dc-testament/dc/93?lang=spa&id=p12-p13#p12" }
+    ],
+    source: "Guía para el Estudio de las Escrituras — Gracia; Temas del Evangelio — Gracia"
+  },
+  {
     id: "fe",
     term: "Fe en Jesucristo",
     category: "Doctrinal",
