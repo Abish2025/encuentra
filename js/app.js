@@ -63,7 +63,8 @@ export function showToast(message, type = "info") {
 // Router Principal
 function handleRoute() {
   const hash = window.location.hash.slice(1).trim() || "inicio";
-  const [routeKey] = hash.split("/");
+  const [routeKey, ...paramParts] = hash.split("/");
+  const routeParam = paramParts.join("/");
 
   // Verificar si es un alias
   if (SUBMODULE_ALIASES[routeKey]) {
@@ -71,8 +72,8 @@ function handleRoute() {
     if (alias.route === "practica") setPracticaTab(alias.tab);
     if (alias.route === "mi-estudio") setMiEstudioTab(alias.tab);
     const targetRoute = ROUTES[alias.route];
-    viewContainer.innerHTML = targetRoute.render();
-    if (targetRoute.init) targetRoute.init(viewContainer, showToast);
+    viewContainer.innerHTML = targetRoute.render(routeParam);
+    if (targetRoute.init) targetRoute.init(viewContainer, showToast, routeParam);
     updateActiveNav(targetRoute.navKey);
     closeMobileMenu();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -82,11 +83,11 @@ function handleRoute() {
   const targetRoute = ROUTES[routeKey] || ROUTES.inicio;
 
   // Renderizar vista
-  viewContainer.innerHTML = targetRoute.render();
+  viewContainer.innerHTML = targetRoute.render(routeParam);
 
   // Inicializar eventos
   if (targetRoute.init) {
-    targetRoute.init(viewContainer, showToast);
+    targetRoute.init(viewContainer, showToast, routeParam);
   }
 
   // Actualizar menú activo

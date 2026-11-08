@@ -2,6 +2,8 @@
 // ENCUENTRA — VISTA: INICIO (REDISEÑADA PARA JÓVENES)
 // ==========================================================================
 
+import { getSvgIcon } from "../icons.js";
+
 export function renderInicioView() {
   return `
     <!-- Presentación Principal (Hero) -->
@@ -57,8 +59,8 @@ export function renderInicioView() {
           
           <!-- Opción 1: Soy principiante -->
           <div class="card card-hover" style="border-top: 4px solid var(--c-matcha); display: flex; flex-direction: column;">
-            <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--c-matcha-subtle); color: var(--c-matcha-dark); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
-              🌱
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--c-matcha-subtle); color: var(--c-matcha-dark); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+              <span style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">${getSvgIcon("sprout")}</span>
             </div>
             <h3 style="font-size: 1.35rem; color: var(--c-carob); margin-bottom: 0.5rem;">Soy principiante</h3>
             <p style="font-size: 0.95rem; color: var(--c-text-secondary); line-height: 1.55; flex-grow: 1; margin-bottom: 1.25rem;">
@@ -73,24 +75,24 @@ export function renderInicioView() {
 
           <!-- Opción 2: Ya leo las Escrituras -->
           <div class="card card-hover" style="border-top: 4px solid var(--c-chai); display: flex; flex-direction: column; background: #FAF7F2;">
-            <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--c-chai-subtle); color: var(--c-chai-dark); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
-              📖
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--c-chai-subtle); color: var(--c-chai-dark); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+              <span style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">${getSvgIcon("book")}</span>
             </div>
             <h3 style="font-size: 1.35rem; color: var(--c-carob); margin-bottom: 0.5rem;">Ya leo las Escrituras</h3>
             <p style="font-size: 0.95rem; color: var(--c-text-secondary); line-height: 1.55; flex-grow: 1; margin-bottom: 1.25rem;">
               Leo con frecuencia, pero a veces siento que solo paso las páginas. Quiero aprender a descubrir la enseñanza central.
             </p>
             <div style="padding-top: 0.75rem; border-top: 1px solid var(--c-border-subtle);">
-              <a href="#leccion/idea-principal" class="btn btn-sm btn-chai btn-block">
-                <span>Aprender la Idea Principal &rarr;</span>
+              <a href="#leccion/como-comenzar" class="btn btn-sm btn-chai btn-block">
+                <span>Comenzar Lecciones &rarr;</span>
               </a>
             </div>
           </div>
 
           <!-- Opción 3: Quiero profundizar -->
           <div class="card card-hover" style="border-top: 4px solid var(--c-carob); display: flex; flex-direction: column;">
-            <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--c-carob-subtle); color: var(--c-carob); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">
-              🔍
+            <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--c-carob-subtle); color: var(--c-carob); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+              <span style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">${getSvgIcon("search")}</span>
             </div>
             <h3 style="font-size: 1.35rem; color: var(--c-carob); margin-bottom: 0.5rem;">Quiero profundizar</h3>
             <p style="font-size: 0.95rem; color: var(--c-text-secondary); line-height: 1.55; flex-grow: 1; margin-bottom: 1.25rem;">

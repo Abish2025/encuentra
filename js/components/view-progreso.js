@@ -5,6 +5,7 @@
 
 import { store } from "../store.js";
 import { CURRICULUM_LEVELS } from "../data/curriculum.js";
+import { getSvgIcon } from "../icons.js";
 
 export function renderProgresoView() {
   const progress = store.getProgress();
@@ -31,35 +32,35 @@ export function renderProgresoView() {
       id: "b-first",
       title: "Primer Escudriñador",
       desc: "Completaste tu primera lección en la Academia.",
-      icon: "🌱",
+      icon: getSvgIcon("sprout"),
       unlocked: completedLessons.length >= 1
     },
     {
       id: "b-idea",
       title: "Maestro de la Idea Principal",
       desc: "Completaste la lección maestra 1.4.",
-      icon: "💡",
+      icon: getSvgIcon("lightbulb"),
       unlocked: completedLessons.includes("idea-principal")
     },
     {
       id: "b-writer",
       title: "Diario Activo",
       desc: "Has guardado al menos 3 notas o reflexiones en tu Diario.",
-      icon: "✍️",
+      icon: getSvgIcon("edit"),
       unlocked: entriesCount >= 3
     },
     {
       id: "b-words",
       title: "Explorador Doctrinal",
       desc: "Guardaste al menos 2 términos en tus favoritos del Diccionario.",
-      icon: "📖",
+      icon: getSvgIcon("book"),
       unlocked: favsCount >= 2
     },
     {
       id: "b-quiz",
       title: "Analista de Preguntas",
       desc: "Has respondido al menos 2 ejercicios interactivos.",
-      icon: "🎯",
+      icon: getSvgIcon("target"),
       unlocked: exerciseStats.answered >= 2
     }
   ];
@@ -139,7 +140,10 @@ export function renderProgresoView() {
 
         ${stagesInProgress.length > 0 ? `
           <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--c-border-subtle);">
-            <h3 style="font-size: 1rem; color: var(--c-carob); margin-bottom: 0.75rem;">📝 Lecciones en curso</h3>
+            <h3 style="font-size: 1rem; color: var(--c-carob); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.35rem;">
+              ${getSvgIcon("notes")}
+              <span>Lecciones en curso</span>
+            </h3>
             ${stagesInProgress.map(s => `
               <div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; font-size: 0.88rem;">
                 <span style="color: var(--c-text-primary); font-weight: 600;">${s.id}</span>
@@ -163,11 +167,13 @@ export function renderProgresoView() {
         <div class="badges-grid">
           ${badges.map(b => `
             <div class="badge-item ${b.unlocked ? 'unlocked' : 'locked'}">
-              <div class="badge-icon-box">${b.icon}</div>
+              <div class="badge-icon-box" style="display: flex; align-items: center; justify-content: center;">
+                <span style="display: inline-flex; width: 24px; height: 24px; align-items: center; justify-content: center;">${b.icon}</span>
+              </div>
               <h3 style="font-size: 1.05rem; color: var(--c-carob); margin-bottom: 0.35rem;">${b.title}</h3>
               <p style="font-size: 0.85rem; color: var(--c-text-secondary); margin: 0; line-height: 1.4;">${b.desc}</p>
-              <div style="margin-top: 0.75rem; font-size: 0.78rem; font-weight: 700; color: ${b.unlocked ? 'var(--c-matcha-dark)' : 'var(--c-text-muted)'};">
-                ${b.unlocked ? '✓ Desbloqueada' : 'Bloqueada'}
+              <div style="margin-top: 0.75rem; font-size: 0.78rem; font-weight: 700; color: ${b.unlocked ? 'var(--c-matcha-dark)' : 'var(--c-text-muted)'}; display: flex; align-items: center; gap: 0.25rem;">
+                ${b.unlocked ? `<span style="display:inline-flex; width:13px; height:13px;">${getSvgIcon("check")}</span> <span>Desbloqueada</span>` : '<span>Bloqueada</span>'}
               </div>
             </div>
           `).join('')}
@@ -193,7 +199,7 @@ export function initProgresoEvents(container, showToast) {
   const btnReset = container.querySelector("#btn-reset-all-data");
   if (btnReset) {
     btnReset.addEventListener("click", () => {
-      if (confirm("⚠️ ¿Estás completamente seguro de que deseas eliminar todas tus notas, checklists y progreso? Esta acción no se puede deshacer.")) {
+      if (confirm("¿Estás completamente seguro de que deseas eliminar todas tus notas, checklists y progreso? Esta acción no se puede deshacer.")) {
         store.clearAllUserData();
         showToast("Todos los datos locales han sido borrados de forma segura.", "info");
         container.innerHTML = renderProgresoView();

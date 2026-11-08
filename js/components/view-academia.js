@@ -1,10 +1,11 @@
 // ==========================================================================
-// ENCUENTRA — VISTA: ACADEMIA DE APRENDIZAJE (REDISEÑADA)
+// ENCUENTRA — VISTA: ACADEMIA DE APRENDIZAJE
 // Nombres comprensibles: Comienza a descubrir · Comprende lo que lees · Profundiza · Estudia por tu cuenta
 // ==========================================================================
 
 import { CURRICULUM_LEVELS } from "../data/curriculum.js";
 import { store } from "../store.js";
+import { getSvgIcon } from "../icons.js";
 
 let activeLevelId = 1;
 
@@ -36,13 +37,15 @@ export function renderAcademiaView() {
         
         <!-- Tarjeta de Qué aprenderás en este nivel -->
         <div class="level-intro-card" style="border-left: 4px solid var(--c-matcha); background: var(--c-surface);">
-          <div class="level-icon-badge" style="width: 52px; height: 52px; font-size: 1.4rem;">
-            ${getLevelIcon(currentLevel.id)}
+          <div class="level-icon-badge" style="width: 52px; height: 52px;">
+            <div style="width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;">
+              ${getLevelIcon(currentLevel.id)}
+            </div>
           </div>
           <div>
             <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.25rem;">
               <span class="badge badge-pistache">${currentLevel.badge}</span>
-              <span style="font-size: 0.82rem; color: var(--c-text-muted);">${currentLevel.lessons.length} lecciones</span>
+              <span style="font-size: 0.82rem; color: var(--c-text-muted);">${currentLevel.lessons.length} lecciones disponibles</span>
             </div>
             <h2 style="font-size: 1.55rem; margin-bottom: 0.35rem; color: var(--c-carob);">${currentLevel.title}</h2>
             <p style="margin-bottom: 0.5rem; color: var(--c-text-primary); font-size: 0.96rem; line-height: 1.5;">${currentLevel.tagline}</p>
@@ -53,43 +56,32 @@ export function renderAcademiaView() {
           </div>
         </div>
 
-        <!-- Cuadrícula de Lecciones del Nivel -->
+        <!-- Cuadrícula de Lecciones del Nivel (Todas Habilitadas y Funcionales) -->
         <div class="lessons-grid">
           ${currentLevel.lessons.map(lesson => {
             const isCompleted = store.isLessonCompleted(lesson.id);
             const isMaster = lesson.isMaster;
-            // Solo la lección maestra (idea-principal) tiene contenido completo
-            const isAvailable = isMaster;
             return `
-              <div class="lesson-card ${isMaster ? 'card-matcha' : ''} ${!isAvailable ? 'lesson-coming-soon' : ''}">
+              <div class="lesson-card ${isMaster ? 'card-matcha' : ''}">
                 <div class="lesson-meta">
                   <span class="badge ${isMaster ? 'badge-matcha' : 'badge-carob'}">Lección ${lesson.number}</span>
-                  <span class="lesson-duration">
-                    <svg class="icon" style="width: 0.95rem; height: 0.95rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    ${lesson.duration}
+                  <span class="lesson-duration" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                    ${getSvgIcon("clock")}
+                    <span>${lesson.duration}</span>
                   </span>
                 </div>
 
-                <h3 class="lesson-title" style="${!isAvailable ? 'opacity:0.7;' : ''}">${lesson.title}</h3>
-                <p class="lesson-desc" style="${!isAvailable ? 'opacity:0.6;' : ''}">${lesson.desc}</p>
+                <h3 class="lesson-title">${lesson.title}</h3>
+                <p class="lesson-desc">${lesson.desc}</p>
 
                 <div class="lesson-card-footer">
-                  ${isAvailable ? `
-                    <span class="lesson-status-badge ${isCompleted ? 'text-success' : 'text-muted'}">
-                      ${isCompleted ? '✓ Completada' : 'Disponible'}
-                    </span>
-                    <a href="#leccion/${lesson.id}" class="btn btn-sm ${isMaster ? 'btn-primary' : 'btn-secondary'}">
-                      <span>${isMaster ? 'Iniciar Lección' : 'Ver Lección'}</span>
-                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                    </a>
-                  ` : `
-                    <span class="lesson-status-badge text-muted" style="font-style:italic;">
-                      🛠 En preparación
-                    </span>
-                    <span class="btn btn-sm" style="background:var(--c-surface-warm);color:var(--c-text-muted);cursor:not-allowed;border:1px solid var(--c-border);" title="Esta lección está en preparación">
-                      Próximamente
-                    </span>
-                  `}
+                  <span class="lesson-status-badge ${isCompleted ? 'text-success' : 'text-muted'}" style="display: inline-flex; align-items: center; gap: 0.3rem;">
+                    ${isCompleted ? `${getSvgIcon("check")} <span>Completada</span>` : `<span>Disponible</span>`}
+                  </span>
+                  <a href="#leccion/${lesson.id}" class="btn btn-sm ${isCompleted ? 'btn-secondary' : (isMaster ? 'btn-primary' : 'btn-primary')}">
+                    <span>${isCompleted ? 'Repasar' : 'Comenzar'}</span>
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
                 </div>
               </div>
             `;
@@ -102,11 +94,11 @@ export function renderAcademiaView() {
 
 function getLevelIcon(id) {
   switch (Number(id)) {
-    case 1: return "🌱";
-    case 2: return "📖";
-    case 3: return "🔍";
-    case 4: return "✨";
-    default: return "📚";
+    case 1: return getSvgIcon("sprout");
+    case 2: return getSvgIcon("book");
+    case 3: return getSvgIcon("search");
+    case 4: return getSvgIcon("sparkles");
+    default: return getSvgIcon("library");
   }
 }
 

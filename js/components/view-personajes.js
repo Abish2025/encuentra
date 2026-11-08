@@ -4,6 +4,7 @@
 
 import { SCRIPTURE_CHARACTERS } from "../data/characters.js";
 import { store } from "../store.js";
+import { getSvgIcon } from "../icons.js";
 
 let selectedWorkFilter = "Todos";
 let activeModalCharacterId = null;
@@ -115,11 +116,12 @@ function renderCharacterModal(char) {
 
         <div>
           <strong style="color: var(--c-carob); display: block; font-size: 0.88rem; text-transform: uppercase; margin-bottom: 0.4rem;">Pasajes de Referencia en las Escrituras:</strong>
-          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.35rem;">
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.35rem; padding: 0;">
             ${char.references.map(r => `
               <li>
-                <a href="${r.url}" target="_blank" rel="noopener noreferrer" class="scripture-link">
-                  🔗 ${r.text}
+                <a href="${r.url}" target="_blank" rel="noopener noreferrer" class="scripture-link" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                  ${getSvgIcon("link")}
+                  <span>${r.text}</span>
                 </a>
               </li>
             `).join('')}

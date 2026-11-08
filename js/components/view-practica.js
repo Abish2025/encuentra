@@ -7,6 +7,7 @@ import { renderGuiaView, initGuiaEvents } from "./view-guia.js";
 import { renderDiccionarioView, initDiccionarioEvents } from "./view-diccionario.js";
 import { renderPersonajesView, initPersonajesEvents } from "./view-personajes.js";
 import { renderRecursosView, initRecursosEvents } from "./view-recursos.js";
+import { getSvgIcon } from "../icons.js";
 
 let activePracticaTab = "guia"; // "guia" | "diccionario" | "personajes" | "recursos"
 
@@ -18,10 +19,10 @@ export function setPracticaTab(tabKey) {
 
 export function renderPracticaView() {
   const TABS = [
-    { key: "guia", label: "Guía de Estudio", icon: "✨", subtitle: "Asistente guiado paso a paso" },
-    { key: "diccionario", label: "Diccionario", icon: "📖", subtitle: "Términos, doctrina y contexto" },
-    { key: "personajes", label: "Personajes", icon: "👤", subtitle: "Hombres y mujeres de fe" },
-    { key: "recursos", label: "Recursos Oficiales", icon: "🎬", subtitle: "Videos y manuales de la Iglesia" }
+    { key: "guia", label: "Guía de Estudio", icon: getSvgIcon("compass"), subtitle: "Asistente guiado paso a paso" },
+    { key: "diccionario", label: "Diccionario", icon: getSvgIcon("book"), subtitle: "Términos, doctrina y contexto" },
+    { key: "personajes", label: "Personajes", icon: getSvgIcon("user"), subtitle: "Hombres y mujeres de fe" },
+    { key: "recursos", label: "Recursos Oficiales", icon: getSvgIcon("video"), subtitle: "Videos y manuales de la Iglesia" }
   ];
 
   return `
@@ -37,7 +38,7 @@ export function renderPracticaView() {
         <div style="display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.5rem;">
           ${TABS.map(tab => `
             <button class="level-tab-btn practica-tab-btn ${activePracticaTab === tab.key ? 'active' : ''}" data-tab="${tab.key}">
-              <span>${tab.icon} ${tab.label}</span>
+              <span style="display: inline-flex; align-items: center; gap: 0.4rem;">${tab.icon} <span>${tab.label}</span></span>
             </button>
           `).join('')}
         </div>

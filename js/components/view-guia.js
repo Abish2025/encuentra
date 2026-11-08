@@ -3,6 +3,7 @@
 // ==========================================================================
 
 import { store } from "../store.js";
+import { getSvgIcon } from "../icons.js";
 
 let guideCurrentStep = 1;
 const TOTAL_GUIDE_STEPS = 5;
@@ -37,7 +38,7 @@ export function renderGuiaView() {
         <div class="wizard-progress">
           ${[1, 2, 3, 4, 5].map(stepNum => `
             <div class="wizard-step-circle ${stepNum === guideCurrentStep ? 'active' : (stepNum < guideCurrentStep ? 'completed' : '')}">
-              ${stepNum < guideCurrentStep ? '✓' : stepNum}
+              ${stepNum < guideCurrentStep ? `<span style="display:inline-flex; width:14px; height:14px; align-items:center; justify-content:center;">${getSvgIcon("check")}</span>` : stepNum}
             </div>
           `).join('')}
         </div>
@@ -59,8 +60,9 @@ export function renderGuiaView() {
                 Siguiente Paso &rarr;
               </button>
             ` : `
-              <button id="btn-guide-finish" class="btn btn-primary">
-                ✓ Finalizar y Guardar en mi Diario
+              <button id="btn-guide-finish" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                ${getSvgIcon("check")}
+                <span>Finalizar y Guardar en mi Diario</span>
               </button>
             `}
           </div>

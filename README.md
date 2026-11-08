@@ -49,9 +49,9 @@ Para evitar que los estudiantes jóvenes se sientan abrumados con demasiadas opc
 
 La portada orienta inmediatamente al joven según su punto de partida:
 
-- **🌱 Soy principiante:** Guiado al Nivel 1 para crear un hábito y entender lo básico.
-- **📖 Ya leo las Escrituras:** Guiado a la lección modelo para aprender a extraer la verdad central y no solo pasar páginas.
-- **🔍 Quiero profundizar:** Guiado al análisis de contexto, símbolos y correlación doctrinal.
+- **Soy principiante:** Guiado al Nivel 1 para crear un hábito y entender lo básico.
+- **Ya leo las Escrituras:** Guiado a las lecciones prácticas para aprender a extraer la verdad central y no solo pasar páginas.
+- **Quiero profundizar:** Guiado al análisis de contexto, símbolos y correlación doctrinal.
 
 ---
 

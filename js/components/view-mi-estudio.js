@@ -7,6 +7,7 @@ import { renderDiarioView, initDiarioEvents } from "./view-diario.js";
 import { renderProgresoView, initProgresoEvents } from "./view-progreso.js";
 import { DICTIONARY_TERMS } from "../data/dictionary.js";
 import { store } from "../store.js";
+import { getSvgIcon } from "../icons.js";
 
 let activeEstudioTab = "diario"; // "diario" | "progreso" | "favoritos"
 
@@ -23,9 +24,9 @@ export function renderMiEstudioView() {
   const favorites = store.getFavorites();
 
   const TABS = [
-    { key: "diario", label: `Mi Diario (${entriesCount})`, icon: "✍️" },
-    { key: "progreso", label: `Mis Habilidades (${completedCount})`, icon: "🎯" },
-    { key: "favoritos", label: `Mis Favoritos (${favorites.length})`, icon: "★" }
+    { key: "diario", label: `Mi Diario (${entriesCount})`, icon: getSvgIcon("edit") },
+    { key: "progreso", label: `Mis Habilidades (${completedCount})`, icon: getSvgIcon("target") },
+    { key: "favoritos", label: `Mis Favoritos (${favorites.length})`, icon: getSvgIcon("starFilled") }
   ];
 
   return `
@@ -41,7 +42,7 @@ export function renderMiEstudioView() {
         <div style="display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.5rem;">
           ${TABS.map(tab => `
             <button class="level-tab-btn estudio-tab-btn ${activeEstudioTab === tab.key ? 'active' : ''}" data-tab="${tab.key}">
-              <span>${tab.icon} ${tab.label}</span>
+              <span style="display: inline-flex; align-items: center; gap: 0.4rem;">${tab.icon} <span>${tab.label}</span></span>
             </button>
           `).join('')}
         </div>
@@ -77,7 +78,7 @@ function renderActiveEstudioSubmodule(favorites) {
             <div class="term-card">
               <div class="term-header">
                 <span class="badge badge-matcha">${t.category}</span>
-                <span style="color: #E29B38;">★</span>
+                <span style="color: #E29B38; display: inline-flex; width: 16px; height: 16px;">${getSvgIcon("starFilled")}</span>
               </div>
               <h3 class="term-title">${t.term}</h3>
               <p class="term-definition">${t.simpleDef}</p>

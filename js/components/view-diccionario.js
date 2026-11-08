@@ -4,6 +4,7 @@
 
 import { DICTIONARY_TERMS } from "../data/dictionary.js";
 import { store } from "../store.js";
+import { getSvgIcon } from "../icons.js";
 
 let currentCategory = "Todos";
 let searchQuery = "";
@@ -63,7 +64,7 @@ export function renderDiccionarioView() {
         <div class="pill-filters" style="justify-content: center; margin-top: 1.25rem;">
           ${categories.map(cat => `
             <button class="pill-btn dict-cat-btn ${currentCategory === cat ? 'active' : ''}" data-cat="${cat}">
-              ${cat === 'Favoritos' ? `★ Favoritos (${favorites.length})` : cat}
+              ${cat === 'Favoritos' ? `<span style="display:inline-flex; width:13px; height:13px; vertical-align:middle; margin-right:3px;">${getSvgIcon("starFilled")}</span> Favoritos (${favorites.length})` : cat}
             </button>
           `).join('')}
         </div>
@@ -170,8 +171,9 @@ function renderTermModal(term, isFav) {
           <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.4rem;">
             ${term.references.map(r => `
               <li>
-                <a href="${r.url}" target="_blank" rel="noopener noreferrer" class="scripture-link">
-                  🔗 ${r.text}
+                <a href="${r.url}" target="_blank" rel="noopener noreferrer" class="scripture-link" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+                  ${getSvgIcon("link")}
+                  <span>${r.text}</span>
                 </a>
               </li>
             `).join('')}
@@ -182,8 +184,9 @@ function renderTermModal(term, isFav) {
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--c-border-subtle);">
-          <button id="modal-fav-toggle" class="btn btn-sm ${isFav ? 'btn-chai' : 'btn-outline'}" data-fav-id="${term.id}">
-            ★ ${isFav ? 'Guardado en Favoritos' : 'Añadir a Favoritos'}
+          <button id="modal-fav-toggle" class="btn btn-sm ${isFav ? 'btn-chai' : 'btn-outline'}" data-fav-id="${term.id}" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+            ${isFav ? getSvgIcon("starFilled") : getSvgIcon("star")}
+            <span>${isFav ? 'Guardado en Favoritos' : 'Añadir a Favoritos'}</span>
           </button>
           <button id="modal-save-journal" class="btn btn-sm btn-secondary" data-term="${term.term}">
             Anotar en Diario
