@@ -1,17 +1,14 @@
 // ==========================================================================
-// ENCUENTRA — CONTROLADOR PRINCIPAL Y ENRUTADOR (SPA)
+// ENCUENTRA — ENRUTADOR Y CONTROLADOR PRINCIPAL (SPA)
+// Navegación Simplificada en 4 Secciones Principales
 // ==========================================================================
 
 import { renderInicioView } from "./components/view-inicio.js";
 import { renderAcademiaView, initAcademiaEvents } from "./components/view-academia.js";
 import { renderLeccionView, initLeccionEvents } from "./components/view-leccion.js";
 import { renderExploradorView, initExploradorEvents } from "./components/view-explorador.js";
-import { renderGuiaView, initGuiaEvents } from "./components/view-guia.js";
-import { renderDiccionarioView, initDiccionarioEvents } from "./components/view-diccionario.js";
-import { renderPersonajesView, initPersonajesEvents } from "./components/view-personajes.js";
-import { renderRecursosView, initRecursosEvents } from "./components/view-recursos.js";
-import { renderDiarioView, initDiarioEvents } from "./components/view-diario.js";
-import { renderProgresoView, initProgresoEvents } from "./components/view-progreso.js";
+import { renderPracticaView, initPracticaEvents, setPracticaTab } from "./components/view-practica.js";
+import { renderMiEstudioView, initMiEstudioEvents, setMiEstudioTab } from "./components/view-mi-estudio.js";
 
 // Elementos del DOM
 const viewContainer = document.getElementById("view-container");
@@ -19,21 +16,27 @@ const toastContainer = document.getElementById("toast-container");
 const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
 const mobileMenu = document.getElementById("mobile-menu");
 
-// Mapeo de Rutas
+// Mapeo de Rutas Principales
 const ROUTES = {
-  inicio: { render: renderInicioView, init: null },
-  academia: { render: renderAcademiaView, init: initAcademiaEvents },
-  leccion: { render: renderLeccionView, init: initLeccionEvents },
-  explorador: { render: renderExploradorView, init: initExploradorEvents },
-  guia: { render: renderGuiaView, init: initGuiaEvents },
-  diccionario: { render: renderDiccionarioView, init: initDiccionarioEvents },
-  personajes: { render: renderPersonajesView, init: initPersonajesEvents },
-  recursos: { render: renderRecursosView, init: initRecursosEvents },
-  diario: { render: renderDiarioView, init: initDiarioEvents },
-  progreso: { render: renderProgresoView, init: initProgresoEvents }
+  inicio: { render: renderInicioView, init: null, navKey: "inicio" },
+  academia: { render: renderAcademiaView, init: initAcademiaEvents, navKey: "academia" },
+  leccion: { render: renderLeccionView, init: initLeccionEvents, navKey: "academia" },
+  explorador: { render: renderExploradorView, init: initExploradorEvents, navKey: "explorador" },
+  practica: { render: renderPracticaView, init: initPracticaEvents, navKey: "practica" },
+  "mi-estudio": { render: renderMiEstudioView, init: initMiEstudioEvents, navKey: "mi-estudio" }
 };
 
-// Función Toast Notificaciones
+// Aliases para mantener retrocompatibilidad total con enlaces directos
+const SUBMODULE_ALIASES = {
+  guia: { route: "practica", tab: "guia" },
+  diccionario: { route: "practica", tab: "diccionario" },
+  personajes: { route: "practica", tab: "personajes" },
+  recursos: { route: "practica", tab: "recursos" },
+  diario: { route: "mi-estudio", tab: "diario" },
+  progreso: { route: "mi-estudio", tab: "progreso" }
+};
+
+// Notificaciones Toast
 export function showToast(message, type = "info") {
   if (!toastContainer) return;
   const toast = document.createElement("div");
@@ -62,23 +65,37 @@ function handleRoute() {
   const hash = window.location.hash.slice(1).trim() || "inicio";
   const [routeKey] = hash.split("/");
 
+  // Verificar si es un alias
+  if (SUBMODULE_ALIASES[routeKey]) {
+    const alias = SUBMODULE_ALIASES[routeKey];
+    if (alias.route === "practica") setPracticaTab(alias.tab);
+    if (alias.route === "mi-estudio") setMiEstudioTab(alias.tab);
+    const targetRoute = ROUTES[alias.route];
+    viewContainer.innerHTML = targetRoute.render();
+    if (targetRoute.init) targetRoute.init(viewContainer, showToast);
+    updateActiveNav(targetRoute.navKey);
+    closeMobileMenu();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+
   const targetRoute = ROUTES[routeKey] || ROUTES.inicio;
 
-  // Renderizar la vista
+  // Renderizar vista
   viewContainer.innerHTML = targetRoute.render();
 
-  // Inicializar controladores de eventos de la vista
+  // Inicializar eventos
   if (targetRoute.init) {
     targetRoute.init(viewContainer, showToast);
   }
 
-  // Actualizar enlaces de navegación activos
-  updateActiveNav(routeKey);
+  // Actualizar menú activo
+  updateActiveNav(targetRoute.navKey);
 
-  // Cerrar menú móvil si estuviera abierto
+  // Cerrar menú móvil
   closeMobileMenu();
 
-  // Desplazar suavemente a la parte superior
+  // Desplazar arriba
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -86,7 +103,7 @@ function updateActiveNav(activeKey) {
   // Desktop
   document.querySelectorAll(".nav-item").forEach(link => {
     const navAttr = link.dataset.nav;
-    if (navAttr === activeKey || (activeKey === "leccion" && navAttr === "academia")) {
+    if (navAttr === activeKey) {
       link.classList.add("active");
     } else {
       link.classList.remove("active");
@@ -96,7 +113,7 @@ function updateActiveNav(activeKey) {
   // Mobile
   document.querySelectorAll(".mobile-nav-item").forEach(link => {
     const navAttr = link.dataset.nav;
-    if (navAttr === activeKey || (activeKey === "leccion" && navAttr === "academia")) {
+    if (navAttr === activeKey) {
       link.classList.add("active");
     } else {
       link.classList.remove("active");
@@ -125,15 +142,12 @@ function closeMobileMenu() {
 
 // Inicialización de la Aplicación
 function initApp() {
-  // Event listeners para cambios de hash
   window.addEventListener("hashchange", handleRoute);
 
-  // Event listener para menú móvil
   if (mobileMenuToggle) {
     mobileMenuToggle.addEventListener("click", toggleMobileMenu);
   }
 
-  // Cerrar menú móvil al hacer click fuera
   document.addEventListener("click", (e) => {
     if (mobileMenu && !mobileMenu.hidden) {
       if (!mobileMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
@@ -142,11 +156,9 @@ function initApp() {
     }
   });
 
-  // Primera carga
   handleRoute();
 }
 
-// Arrancar cuando el DOM esté listo
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initApp);
 } else {
