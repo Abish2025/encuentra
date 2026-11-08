@@ -1,0 +1,1146 @@
+/* ==========================================================================
+   ENCUENTRA — ESTILOS ESPECÍFICOS POR VISTA
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VISTA: INICIO
+   -------------------------------------------------------------------------- */
+.hero-section {
+  padding: 4rem 1.5rem 3.5rem;
+  background: linear-gradient(180deg, #F9F7F3 0%, var(--c-almond-light) 100%);
+  border-bottom: 1px solid var(--c-border-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--c-pistache-subtle) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .hero-grid {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.hero-tagline-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.95rem;
+  border-radius: var(--radius-full);
+  background-color: var(--c-vanilla);
+  color: var(--c-carob-dark);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--c-chai-light);
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  color: var(--c-carob);
+  line-height: 1.18;
+  margin-bottom: 1.25rem;
+}
+
+.hero-title .highlight-text {
+  color: var(--c-matcha-dark);
+  font-style: italic;
+  position: relative;
+}
+
+.hero-description {
+  font-size: 1.15rem;
+  color: var(--c-text-secondary);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+  max-width: 580px;
+}
+
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hero-banner-visual {
+  background: linear-gradient(135deg, var(--c-surface-warm), var(--c-vanilla-light));
+  border: 1.5px solid var(--c-border);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.hero-banner-quote {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--c-carob);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.hero-banner-source {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--c-matcha-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Sección Escritura Destacada */
+.section-featured-scripture {
+  padding: 3rem 1.5rem;
+}
+
+.featured-scripture-card {
+  background: linear-gradient(140deg, #FFFFFF, var(--c-vanilla-light));
+  border: 1.5px solid var(--c-chai-light);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-sm);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+@media (min-width: 860px) {
+  .featured-scripture-card {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+  }
+}
+
+.featured-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--c-carob);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.featured-verse {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--c-text-primary);
+  line-height: 1.55;
+  margin-bottom: 0.85rem;
+}
+
+.featured-ref {
+  font-weight: 700;
+  color: var(--c-matcha-dark);
+  font-size: 1rem;
+}
+
+.featured-reflection {
+  background-color: var(--c-surface);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  border-left: 3px solid var(--c-matcha);
+  font-size: 0.95rem;
+  color: var(--c-text-secondary);
+}
+
+/* "¿Qué quieres hacer hoy?" Sección */
+.section-quick-actions {
+  padding: 3rem 1.5rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--c-text-secondary);
+  max-width: 620px;
+  margin: 0.5rem auto 0;
+}
+
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 600px) {
+  .quick-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .quick-actions-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.action-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.action-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--c-matcha);
+}
+
+.action-card-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  background-color: var(--c-almond);
+  color: var(--c-carob);
+  transition: background-color var(--transition-fast);
+}
+
+.action-card:hover .action-card-icon {
+  background-color: var(--c-matcha);
+  color: #FFFFFF;
+}
+
+.action-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--c-carob);
+  margin-bottom: 0.5rem;
+}
+
+.action-card-desc {
+  font-size: 0.92rem;
+  color: var(--c-text-secondary);
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.action-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--c-matcha-dark);
+  margin-top: 1.25rem;
+}
+
+/* Recomendación de Aprendizaje */
+.section-recommended-lesson {
+  padding: 2rem 1.5rem 3.5rem;
+}
+
+.recommended-box {
+  background: linear-gradient(135deg, #F3F6F1 0%, #EBF0E7 100%);
+  border: 1.5px solid var(--c-pistache);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 860px) {
+  .recommended-box {
+    grid-template-columns: 1.3fr 0.7fr;
+  }
+}
+
+.recommended-box .badge {
+  margin-bottom: 0.75rem;
+}
+
+/* Propósito de ENCUENTRA */
+.section-purpose {
+  padding: 4rem 1.5rem;
+  background-color: var(--c-surface-warm);
+  border-top: 1px solid var(--c-border-subtle);
+}
+
+.purpose-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .purpose-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.purpose-item {
+  background: var(--c-surface);
+  padding: 1.75rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--c-border-subtle);
+  border-top: 4px solid var(--c-carob);
+}
+
+.purpose-item h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+}
+
+.purpose-item p {
+  font-size: 0.92rem;
+  color: var(--c-text-secondary);
+  line-height: 1.55;
+}
+
+/* --------------------------------------------------------------------------
+   2. VISTA: ACADEMIA DE APRENDIZAJE
+   -------------------------------------------------------------------------- */
+.academy-header {
+  padding: 3rem 1.5rem 2rem;
+  text-align: center;
+  background-color: var(--c-almond-light);
+  border-bottom: 1px solid var(--c-border-subtle);
+}
+
+.level-nav-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.level-tab-btn {
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-full);
+  background: var(--c-surface);
+  border: 1.5px solid var(--c-border);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--c-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.level-tab-btn:hover {
+  background-color: var(--c-vanilla);
+  color: var(--c-carob);
+}
+
+.level-tab-btn.active {
+  background-color: var(--c-matcha);
+  color: #FFFFFF;
+  border-color: var(--c-matcha);
+}
+
+.level-content-area {
+  padding: 3rem 1.5rem;
+}
+
+.level-intro-card {
+  background: var(--c-surface-warm);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.level-icon-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  background: var(--c-matcha);
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lessons-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .lessons-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .lessons-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.lesson-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+  position: relative;
+}
+
+.lesson-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--c-matcha);
+}
+
+.lesson-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.lesson-duration {
+  font-size: 0.82rem;
+  color: var(--c-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.lesson-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--c-carob);
+  margin-bottom: 0.65rem;
+  line-height: 1.35;
+}
+
+.lesson-desc {
+  font-size: 0.9rem;
+  color: var(--c-text-secondary);
+  line-height: 1.5;
+  flex-grow: 1;
+  margin-bottom: 1.25rem;
+}
+
+.lesson-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--c-border-subtle);
+}
+
+.lesson-status-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   3. VISTA: LECCIÓN MAESTRA (IDEA PRINCIPAL)
+   -------------------------------------------------------------------------- */
+.lesson-layout {
+  padding: 3rem 1.5rem 5rem;
+}
+
+.lesson-hero {
+  background: linear-gradient(135deg, var(--c-surface-warm), var(--c-vanilla-light));
+  border-radius: var(--radius-xl);
+  border: 1.5px solid var(--c-chai-light);
+  padding: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.lesson-breadcrumbs {
+  font-size: 0.85rem;
+  color: var(--c-text-muted);
+  margin-bottom: 1rem;
+}
+
+.lesson-hero-title {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  margin-bottom: 1rem;
+}
+
+.lesson-objective-box {
+  background: var(--c-surface);
+  border-left: 4px solid var(--c-matcha);
+  padding: 1.25rem;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-top: 1.5rem;
+}
+
+.lesson-objective-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--c-matcha-dark);
+  margin-bottom: 0.35rem;
+}
+
+/* 4 Distinciones Grid */
+.distinctions-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin: 1.75rem 0;
+}
+
+@media (min-width: 640px) {
+  .distinctions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.distinction-card {
+  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  border: 1.5px solid var(--c-border-subtle);
+  border-top: 4px solid var(--c-matcha);
+}
+
+.distinction-card.tema { border-top-color: var(--c-pistache-dark); }
+.distinction-card.idea { border-top-color: var(--c-matcha); background-color: #F8FAF7; }
+.distinction-card.apoyo { border-top-color: var(--c-chai); }
+.distinction-card.aplicacion { border-top-color: var(--c-carob); }
+
+.distinction-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.4rem;
+}
+
+/* Stepper Interactivo de 5 Movimientos */
+.movements-stepper {
+  background: var(--c-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--c-border);
+  padding: 1.75rem;
+  margin: 2rem 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.movements-nav {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--c-border-subtle);
+  margin-bottom: 1.5rem;
+}
+
+.movement-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--c-border);
+  background: var(--c-almond-light);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--c-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.movement-btn.active {
+  background: var(--c-matcha);
+  color: #FFF;
+  border-color: var(--c-matcha);
+}
+
+.movement-step-number {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+}
+
+.movement-body {
+  padding: 0.5rem 0;
+  min-height: 180px;
+}
+
+/* Bloque Narrativo «La lámpara del camino» */
+.narrative-box {
+  background: linear-gradient(145deg, #FAF7F0, #F3ECE0);
+  border: 1px solid var(--c-chai-light);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.narrative-box::before {
+  content: "Relato Ilustrativo";
+  position: absolute;
+  top: -12px;
+  left: 1.5rem;
+  background: var(--c-chai);
+  color: #FFF;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-full);
+}
+
+/* Pistas y Errores Frecuentes */
+.tips-errors-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+@media (min-width: 768px) {
+  .tips-errors-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.tips-box {
+  background: #F4F7F2;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  border-top: 4px solid var(--c-matcha);
+}
+
+.errors-box {
+  background: #FDF6F5;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  border-top: 4px solid var(--c-error);
+}
+
+/* --------------------------------------------------------------------------
+   4. VISTA: EXPLORADOR DE ESCRITURAS
+   -------------------------------------------------------------------------- */
+.explorer-header {
+  padding: 3rem 1.5rem 2rem;
+  background: var(--c-surface-warm);
+  border-bottom: 1px solid var(--c-border-subtle);
+  text-align: center;
+}
+
+.works-selector {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.work-btn {
+  padding: 0.65rem 1.15rem;
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--c-text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.work-btn:hover {
+  background: var(--c-almond);
+}
+
+.work-btn.active {
+  background: var(--c-matcha);
+  color: #FFF;
+  border-color: var(--c-matcha);
+}
+
+.explorer-body {
+  padding: 3rem 1.5rem;
+}
+
+.explorer-controls {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 600px) {
+  .explorer-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Los 3 Momentos de Estudio */
+.study-moments-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--c-border-subtle);
+  margin-bottom: 2rem;
+  gap: 0.5rem;
+}
+
+.moment-tab {
+  flex: 1;
+  text-align: center;
+  padding: 1rem;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--c-text-muted);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.moment-tab.active {
+  color: var(--c-carob-dark);
+  border-bottom-color: var(--c-matcha);
+  background-color: rgba(128, 150, 113, 0.05);
+}
+
+.moment-content-card {
+  background: var(--c-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--c-border-subtle);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* --------------------------------------------------------------------------
+   5. VISTA: GUÍA INTERACTIVA DE ESTUDIO
+   -------------------------------------------------------------------------- */
+.guide-container {
+  padding: 3rem 1.5rem 5rem;
+}
+
+.wizard-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.wizard-step-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--c-almond);
+  border: 2px solid var(--c-border);
+  color: var(--c-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  z-index: 2;
+  transition: all var(--transition-fast);
+}
+
+.wizard-step-circle.active {
+  background: var(--c-matcha);
+  color: #FFF;
+  border-color: var(--c-matcha-dark);
+  box-shadow: 0 0 0 4px var(--c-matcha-subtle);
+}
+
+.wizard-step-circle.completed {
+  background: var(--c-pistache-dark);
+  color: #FFF;
+  border-color: var(--c-pistache-dark);
+}
+
+.wizard-card {
+  background: var(--c-surface);
+  border-radius: var(--radius-xl);
+  border: 1.5px solid var(--c-border-subtle);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.wizard-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--c-border-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   6. VISTA: DICCIONARIO
+   -------------------------------------------------------------------------- */
+.dictionary-header {
+  padding: 3rem 1.5rem 2rem;
+  text-align: center;
+  background: var(--c-surface-warm);
+}
+
+.alphabet-bar {
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin: 1.5rem 0;
+}
+
+.letter-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--c-carob);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.letter-btn:hover, .letter-btn.active {
+  background: var(--c-matcha);
+  color: #FFF;
+  border-color: var(--c-matcha);
+}
+
+.dictionary-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .dictionary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .dictionary-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.term-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.term-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--c-pistache);
+  box-shadow: var(--shadow-md);
+}
+
+.term-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.term-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--c-carob);
+}
+
+.term-definition {
+  font-size: 0.92rem;
+  color: var(--c-text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.fav-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--c-text-muted);
+  padding: 0.25rem;
+}
+
+.fav-btn.active {
+  color: #E29B38;
+}
+
+/* --------------------------------------------------------------------------
+   7. VISTA: PERSONAJES
+   -------------------------------------------------------------------------- */
+.characters-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .characters-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .characters-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.character-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+  border-top: 4px solid var(--c-chai);
+}
+
+.character-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.character-avatar-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--c-vanilla);
+  color: var(--c-carob);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  font-family: var(--font-serif);
+  margin-bottom: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   8. VISTA: RECURSOS
+   -------------------------------------------------------------------------- */
+.resources-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .resources-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .resources-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.resource-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+}
+
+.resource-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--c-matcha);
+}
+
+/* --------------------------------------------------------------------------
+   9. VISTA: DIARIO PERSONAL
+   -------------------------------------------------------------------------- */
+.journal-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  padding: 3rem 1.5rem;
+}
+
+@media (min-width: 860px) {
+  .journal-layout {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+
+.journal-editor-card {
+  background: var(--c-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--c-border);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.journal-entries-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.journal-entry-card {
+  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--c-border-subtle);
+  padding: 1.25rem 1.5rem;
+  border-left: 4px solid var(--c-matcha);
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.journal-entry-card:hover {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--c-pistache);
+}
+
+.entry-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.entry-date {
+  font-size: 0.78rem;
+  color: var(--c-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   10. VISTA: PROGRESO
+   -------------------------------------------------------------------------- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stat-card {
+  background: var(--c-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--c-border-subtle);
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-number {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--c-matcha-dark);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--c-text-muted);
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.badge-item {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  text-align: center;
+  transition: all var(--transition-fast);
+}
+
+.badge-item.unlocked {
+  border-color: var(--c-matcha);
+  background: #F7FAF5;
+}
+
+.badge-item.locked {
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+
+.badge-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--c-vanilla);
+  margin: 0 auto 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-carob);
+  font-size: 1.5rem;
+}
